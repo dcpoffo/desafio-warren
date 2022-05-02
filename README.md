@@ -1,248 +1,38 @@
-# Desafio Capgemini
-### Aplicação desenvolvida para avaliação do Programa Desafio Academia Técnica Capgemini
+# Desafio de Programação - Programa Warren Tech Academy
+## Aplicação desenvolvida para avaliação do Programa Desafio Warren Tech Academy
 
-## O Problema
-A agência Divulga Tudo precisa de um programa para gerenciar os seus anúncios online. O objetivo dos anúncios faz parte de uma campanha nas redes sociais. O sistema de gerenciamento permitirá a gestão do anúncio e o rastreio dos resultados da campanha.
+Esta etapa do processo seletivo tem como objetivo avaliar o conhecimento de programação do aluno. Para tal, foram dados 3 desafios, descritos logo abaixo.
 
-Este programa será composto de duas partes:
-1ª Parte – Uma calculadora de alcance de anúncio online.
-2ª Parte - Um sistema de cadastro de anúncios.
+A proposta é implementar uma Aplicação Console para Windows utilizando o VSCode e o .NET Core (v.6.0.202).
+Para isso, precisamos fazer o download e instalação destas ferramentas:
+* VSCode (https://code.visualstudio.com/download)
+* .NET SDK 6.0 (https://dotnet.microsoft.com/en-us/download). Após a instalação desta ferramenta, devemos entrar com o seguinte comando via terminal(*):
+```
+dotnet --version
+```
+Algo como o código abaixo deverá surgir, indicando a instalação do .NET SDK com sucesso:
 
-### 1ª Parte – Uma calculadora de alcance de anúncio online.
-Criar um script em sua linguagem de programação preferida que receba o valor investido em reais e retorne uma projeção aproximada da quantidade máxima de pessoas que visualizarão o mesmo anúncio (considerando o anúncio original + os compartilhamentos)
-```
-using System;
+![image](https://user-images.githubusercontent.com/52115300/166314001-f92a3b0a-1fd7-4c90-bb36-253a0424c0d5.png)
 
-namespace backend.servicos
-{
-     public class Calculadora
-    {
-        public double quantidadeAlcance = 0;
-        public double quantidadeCliques = 0;
-        public double quantidadeCompartilhamentos = 0;
-        public double quantidadeNovosCompartilhamentos = 0;
-        public int maximoCompartilhamentos = 0;
-        
-        public int CalculaMaximoCompartilhamento(double valor)
-        {
-            quantidadeAlcance = valor * 30;
-            quantidadeCliques = quantidadeAlcance * 0.12;
-            quantidadeCompartilhamentos = quantidadeCliques * 0.3;
-            quantidadeNovosCompartilhamentos = quantidadeCompartilhamentos * 40;
-            maximoCompartilhamentos = Convert.ToInt32(quantidadeNovosCompartilhamentos + 160);
-            return maximoCompartilhamentos;
-        }
-    }
-}
+Após, foi criado uma pasta para cada desafio: desafio1, desafio2 e desafio3. Dentro de cada pasta, foi executado o seguinte comando para que a Aplicação Console fosse criada: 
 ```
+dotnet new console
+```
+Algo como o código abaixo deverá surgir:
 
-### 2ª Parte - Um sistema de cadastro de anúncios.
-## Bases Utilizadas
-Para cadastrar anuncios, serão usandas as bases Cliente e Anuncio. Estas bases armazenam e disponibilizam informações para o cadastro de anuncios. Cada base é usada como Classe para o desenvolvimento da aplicação.
+![image](https://user-images.githubusercontent.com/52115300/166315239-3e6ff282-785e-4345-b96f-aaf474cada76.png)
 
-### Cliente
-```
-Id int NOT NULL AUTO_INCREMENT
-Nome longtext
-```
+Após esses passos, a aplicação já pôde ser desenvolvida.
 
-### Anuncio
-```
-Id int NOT NULL AUTO_INCREMENT
-Nome longtext
-ClienteId int NOT NULL
-DataInicio datetime NOT NULL
-DataTermino datetime NOT NULL
-InvestimentoDiario double NOT NULL
-```
+(*) pode ser o CMD, GitBash ou o Terminal do VSCode.
 
-## Estrutura do Projeto
-Aplicação principal, desenvolvida em Angular utilizando a IDE VSCode. Para o design das interfaces, foi utilizado Angular Material. O projeto foi desenvolvido com a seguinte estrutura:
+### Os Desafios
 
-### front-end (\frontend)
-```
-ng new frontend
-```
+#### Desafio 01
+Alguns números inteiros positivos n possuem uma propriedade na qual a soma de n + reverso(n) resultam em números ímpares. Por exemplo, 36 + 63 = 99 e 409 + 904 = 1313. Considere que n ou reverso(n) não podem começar com 0.
+Existem 120 números reversíveis abaixo de 1000.
+Construa um algoritmo que mostre na tela todos os números n onde a soma de n + reverso(n) resultem em números ímpares que estão abaixo de 1 milhão.
 
-### Estrutura do frontend
-* components - para cada entidade, foi criado um componente para as ações Criar (create), Ler (read), Atualizar (update) e Apagar (delete)
-```
-ng generate component classe-acao
-Ex.: ng generate component anuncio-read
-```
- - views - Componente para "Apresentação" da entidade: opcão para um novo registro da entidade e a leitura (read) na mesma.
- - models - Modelo das Entidades utilizadas: Cliente e Anuncio
- - services - Para cada entidade, foram criados servicos para comunicação com a API: getAll, getById, Post, Put, Delete, entre outros
-```
-ng generate service entidade
-Ex.: ng generate service anuncio
-```
-A comunicação com a API é feita através dos caminhos:
-```
-baseURL = `${environment.mainUrlAPI}entidade`
-mainUrlAPI: 'http://localhost:5000/'
-Ex.:
-getAll(): Observable<Anuncio[]> {
-    return this.http.get<Anuncio[]>(this.baseURL).pipe(
-      map((obj) => obj),
-      catchError((e) => this.errorHandler(e))
-    );
-  }
-```
-Rotas
-```
-http://localhost:4200/clientes
-http://localhost:4200/anuncios
+#### Desafio 02
 
-http://localhost:4200/entidade/create
-http://localhost:4200/entidade/delete/id
-http://localhost:4200/entidade/update/id
-
-http://localhost:4200/relatorios
-```
-
-### back-end (\backend)
-API desenvolvida em .Net Core para comunicação entre o Banco de Dados MySQL e a aplicação principal.
-```
-dotnet new webapi
-```
-
-### Estrutura do backend
- - data
-    - DataContext: através dele podemos acessar os métodos create, read, update, delete e outros metodos de interação com o banco de dados.
-    - IRepository: interface que contém a assinatura de metodos padrões (Add, Update, Delete, SaveChanges) e referentes a cada modelo.
-    - Repositoy: classe que implementa a interface IRepository.
- - Controllers: responsável por responder as requisições em nossa API.
- - models: modelo da aplicação, que seriam as referências as tabelas que temos no banco de dados.
- - Migrations: guarda informações das migrações qua são feitas. Através do comando abaixo, EF Core "liga" as informações contidas na pasta models com as contidas no DbContext e cria um esquema da nossa base de dados: banco e tabelas, criando um histórico dentro desta pasta.
-Com o próximo comando, o EF cria/atualiza o banco de dados a partir da migração.
-```
-dotnet ef migrations add Nome-Migracao
-dotnet ef database update
-```
-Depois de pronta, para testar a API, foi utilizado o Postman. O objetivo é fazer requisições HTTP e avaliar se as repostas (retornos) foram dentro do esperado.
-
-## Executando a aplicação no VSCode
-
-Para que a aplicação seja executada, deve-se abrir o terminal no VSCode e executar os seguintes comandos:
-(os próximos dois passos, devem ser executados apenas na primeira vez ou somente quando necessário)
-- Passo 1: dentro de \backend: (executar somente uma vez, para a criação da base de dados)
-```
-dotnet ef database update
-```
-- Passo 2: dentro de \frontend: 
-O próximo passo faz-se necessário somente caso necessite baixar/atualizar alguma dependencia do projeto. Antes da primeira vez que for rodar a aplicação, deve-se baixar todas as dependencias do projeto, executando o procedimento abaixo.
-```
-npm update
-```
-(os passos a seguir, devem ser executados SOMENTE após os passos anteriores)
-- Passo 3: dentro de \backend:
-Para rodar a API 
-```
-dotnet watch run
-```
-- Passo 4: dentro de \frontend:
-Para rodar a aplicação principal
-```
-npm start
-```
-Se não apresentar nenhum erro, pode-se acessar a aplicação pelo navegador, através do endereço http://localhost:4200
-
-## Retornos
-Retorno das requisições feitas através do Postman
-
-### Obter Clientes
-- GetAll: obtem todos os Clientes cadastrados
-```` json
-url = http://localhost:5000/cliente
-method = GET
-{
-    "id": 
-    "nome":    
-}
-````
-- GetById: obtem determinado Cliente pelo Id
-```` json
-url = http://localhost:5000/cliente/id
-method = GET
-{
-    "id":
-    "nome":
-    "anuncios": [
-        {
-            "id":
-            "nome":
-            "clienteId":
-            "dataInicio":
-            "dataTermino":
-            "investimentoDiario":
-        }
-    ]
-}
-````
-
-### Obter Anuncios
-- GetAll: obtem todos os Anuncios cadastrados
-```` json
-url = http://localhost:5000/anuncio
-method = GET
-{
-        "id": 
-        "nome":
-        "clienteId":
-        "dataInicio":
-        "dataTermino":
-        "investimentoDiario":
-        "cliente": {
-            "id":
-            "nome": 
-            "anuncios": []
-        }
-    },
-````
-- GetById: obtem determinado Anuncio pelo Id
-```` json
-url = http://localhost:5000/anuncio/id
-method = GET
-{
-    "id": 
-    "nome":
-    "clienteId":
-    "dataInicio":
-    "dataTermino":
-    "investimentoDiario":
-    "cliente": null
-}
-````
-- GetAllAnunciosByPesquisa: realiza uma pesquisa de Anuncios por Nome do Cliente, Data Inicio e Data Término
-```` json
-url = http://localhost:5000/anuncio/nome=nomePesquisado/di=dataInicial/df=dataFinal
-method = GET
-{
-        "clienteId":
-        "dataInicio":
-        "dataTermino":
-        "investimentoDiario":
-        "cliente": {
-            "id": 
-            "nome": 
-            "anuncios": []
-        }
-    },
-````
-- GetAllAnuncioByData: realiza uma pesquisa de Anuncios por Data Inicio e Data Término
-```` json
-url = http://localhost:5000/anuncio/di=dataInicial/df=dataFinal
-method = GET
-{
-        "clienteId":
-        "dataInicio":
-        "dataTermino":
-        "investimentoDiario":
-        "cliente": {
-            "id": 
-            "nome": 
-            "anuncios": []
-        }
-    },
-````
+#### Desafio 03
