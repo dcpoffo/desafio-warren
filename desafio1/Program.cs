@@ -19,30 +19,30 @@ namespace Desafio1
             // - não usamos o 0 e 10 pois o número e seu reverso não podem começar com 0
             // - a soma do 11 com seu inverso não seria um número negativo            
             for (int i = 12; i <= maximo; i++)
-            {                
-                var textoDividido = i.ToString().ToArray(); 
+            {
+                // separa individualmente o numero atual e armazena num array
+                var numeroSeparado = i.ToString().ToArray();
 
-                // armazena o último número lido                            
-                var ultimoNumero = textoDividido.Last();
-
-                // inverte o numero lido
-                string textoInvertido = new string(i.ToString().Reverse().ToArray()); 
+                // armazena somente o último número lido do numero separado
+                var ultimoNumero = numeroSeparado.Last();
 
                 // se o ultimo número for 0, não faz o calculo
                 if (ultimoNumero != '0')
-                {               
+                {
+                    // inverte o numero lido
+                    string textoInvertido = new string(i.ToString().Reverse().ToArray());
+
                     // soma o numero lido com seu inverso     
                     var soma = int.Parse(textoInvertido) + i;
 
-                    // se for numero impar, armazena.
+                    // se for numero impar, mostra.
                     if (soma % 2 != 0)
                     {
-                        contador++;                 
+                        contador++;
                         Console.WriteLine($"Numero: {i} - Reverso: {textoInvertido} - Soma: {soma}");
                     }
                 }
             }
-
             Console.WriteLine();
             Console.WriteLine($"Total de números reversos até {maximo}: {contador}");
         }

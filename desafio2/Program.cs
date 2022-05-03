@@ -9,6 +9,7 @@ namespace teste
     {
         static void Main(string[] args)
         {
+            // quantidade minima de alunos para iniciar a aula
             int x = 0;
 
             Console.Write("Quantidade mínima de alunos presentes para iniciar a aula (99 para sair): ");
@@ -33,17 +34,20 @@ namespace teste
                 Console.Write("Erro de conversão!");
                 Console.WriteLine();
                 return;
-            }
-
-            List<int> listaTempoChagada = new List<int>();
+            }            
 
             Console.WriteLine("\nATENÇÃO PARA O TEMPO DE CHEGADA:" +
                           "\nMenor ou igual a zero: Sem atraso. Exemplo: 0 ou 2" +
                           "\nMaior que 0 (zero): Atrasado. Exemplo: -1 " +
                           "\nSOMENTE NÚMEROS INTEIROS ");
 
+            // armazena o tempo de chagada dos alunos
             List<int> tempoChegada = new List<int>();
+            
+            // valor do tempo informado
             int valorVetor = 0;
+
+            // conta alunos dentro ou fora do horário
             int contaNormal = 0;
             int contaAtrasado = 0;
 
@@ -51,7 +55,6 @@ namespace teste
             do
             {
                 Console.Write("Tempo de chagada do aluno: (99 para sair): ");
-
                 try
                 {
                     valorVetor = int.Parse(Console.ReadLine());
@@ -59,6 +62,7 @@ namespace teste
                     if (valorVetor != 99)
                     {
                         tempoChegada.Add(valorVetor);
+
                         if (valorVetor <= 0)
                         {
                             contaNormal++;
@@ -80,7 +84,7 @@ namespace teste
             while (valorVetor != 99);
 
             Console.WriteLine();
-            // minimo de pessoas > quantidade que chegou
+            // numero minimo de pessoas > quantidade que chegou
             if (x > tempoChegada.Count)
             {
                 Console.WriteLine("Não há pessoas suficiente para iniciar a aula!");
@@ -89,12 +93,12 @@ namespace teste
             else
             {
                 string saida;
-                // minimo de pessoas e quantos chegaram é igual
+                // se minimo de pessoas = quantos chegaram
                 if (x == tempoChegada.Count)
                 {
                     saida = (contaAtrasado == 0) ? "Aula Normal" : "Aula Cancelada";
                 }
-                // minimo de pessoas e quantos chegaram é diferente
+                // se minimo de pessoas e quantos chegaram é diferente
                 else
                     saida = (contaNormal == x) ? "Aula Normal" : "Aula Cancelada";
 
