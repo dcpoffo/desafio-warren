@@ -12,9 +12,9 @@ namespace Desafio1
 
             // numero máximo para fazer o cálculo. 
             // Alterar este valor caso desejar 
-            int maximo = 1000;
+            int maximo = 1000000;
 
-            //começamos de 12 pois:
+            // começamos de 12 pois:
             // - de 1 a 9 não há número inverso
             // - não usamos o 0 e 10 pois o número e seu reverso não podem começar com 0
             // - a soma do 11 com seu inverso não seria um número negativo            

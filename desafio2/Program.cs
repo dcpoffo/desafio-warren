@@ -12,7 +12,9 @@ namespace teste
             // quantidade minima de alunos para iniciar a aula
             int x = 0;
 
-            Console.Write("Quantidade mínima de alunos presentes para iniciar a aula (99 para sair): ");
+            Console.Write("Quantidade mínima de alunos presentes para iniciar a aula" + 
+                          "\n(SOMENTE NÚMEROS INTEIROS) " + 
+                          "\n(99 para sair): ");
             try
             {
                 x = int.Parse(Console.ReadLine());
@@ -37,7 +39,7 @@ namespace teste
             }            
 
             Console.WriteLine("\nATENÇÃO PARA O TEMPO DE CHEGADA:" +
-                          "\nMenor ou igual a zero: Sem atraso. Exemplo: 0 ou 2" +
+                          "\nMenor ou igual a zero: sem atraso. Exemplo: 0 ou 1" +
                           "\nMaior que 0 (zero): Atrasado. Exemplo: -1 " +
                           "\nSOMENTE NÚMEROS INTEIROS ");
 
@@ -61,6 +63,7 @@ namespace teste
 
                     if (valorVetor != 99)
                     {
+                        //adiciona o tempo informado na lista
                         tempoChegada.Add(valorVetor);
 
                         if (valorVetor <= 0)
@@ -84,7 +87,7 @@ namespace teste
             while (valorVetor != 99);
 
             Console.WriteLine();
-            // numero minimo de pessoas > quantidade que chegou
+            // se o numero minimo de pessoas > quantidade que chegou
             if (x > tempoChegada.Count)
             {
                 Console.WriteLine("Não há pessoas suficiente para iniciar a aula!");
@@ -98,7 +101,7 @@ namespace teste
                 {
                     saida = (contaAtrasado == 0) ? "Aula Normal" : "Aula Cancelada";
                 }
-                // se minimo de pessoas e quantos chegaram é diferente
+                // se minimo de pessoas <> quantos chegaram
                 else
                     saida = (contaNormal == x) ? "Aula Normal" : "Aula Cancelada";
 
