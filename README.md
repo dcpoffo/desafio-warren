@@ -45,7 +45,7 @@ Se N = 10 e V = [2, 3, 4] você pode utilizar as seguintes soma: [2, 2, 2, 2, 2]
 
 
 ### Proposta, ferramentas utilizadas e configurações
-A proposta é implementar uma Aplicação Console para Windows utilizando o VSCode e o .NET Core (v.6.0.202).
+A proposta é implementar uma Aplicação Console em C# para Windows utilizando o VSCode e o .NET Core (v.6.0.202).
 Para isso, precisamos fazer o download e instalação destas ferramentas:
 * VSCode (https://code.visualstudio.com/download)
 * .NET SDK 6.0 (https://dotnet.microsoft.com/en-us/download). Após a instalação desta ferramenta, devemos entrar com o seguinte comando via terminal (pode ser o Prompt de Comando, GitBash ou o Terminal do VSCode):
