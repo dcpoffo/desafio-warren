@@ -39,7 +39,7 @@ namespace Desafio1
                     if (soma % 2 != 0)
                     {
                         contador++;
-                        Console.WriteLine($"Numero: {i} - Reverso: {textoInvertido} - Soma: {soma}");
+                        Console.WriteLine($"Numero: {i} + Reverso: {textoInvertido} = Soma: {soma}");
                     }
                 }
             }
