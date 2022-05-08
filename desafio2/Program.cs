@@ -1,9 +1,4 @@
-﻿using System;
-
-using System.Collections.Generic;
-using System.Linq;
-
-namespace teste
+﻿namespace Desafio2
 {
     class Program
     {
@@ -12,8 +7,8 @@ namespace teste
             // quantidade minima de alunos para iniciar a aula
             int x = 0;
 
-            Console.Write("Quantidade mínima de alunos presentes para iniciar a aula" + 
-                          "\n(SOMENTE NÚMEROS INTEIROS) " + 
+            Console.Write("Quantidade mínima (no máximo 10) de alunos presentes para iniciar a aula" +
+                          "\n(SOMENTE NÚMEROS INTEIROS) " +
                           "\n(99 para sair): ");
             try
             {
@@ -23,10 +18,9 @@ namespace teste
                     return;
                 }
 
-                if (x <= 0)
+                if (x <= 0 || x >= 10)
                 {
-                    Console.Write("\nQuantidade deve ser maior que 0!");
-                    Console.ReadKey();
+                    Console.Write("\nQuantidade deve ser maior que 0 e no máximo 10 alunos!");
                     return;
                 }
             }
@@ -36,7 +30,7 @@ namespace teste
                 Console.Write("Erro de conversão!");
                 Console.WriteLine();
                 return;
-            }            
+            }
 
             Console.WriteLine("\nATENÇÃO PARA O TEMPO DE CHEGADA:" +
                           "\nMenor ou igual a zero: sem atraso. Exemplo: 0 ou 1" +
@@ -45,7 +39,7 @@ namespace teste
 
             // armazena o tempo de chagada dos alunos
             List<int> tempoChegada = new List<int>();
-            
+
             // valor do tempo informado
             int valorVetor = 0;
 
@@ -87,25 +81,29 @@ namespace teste
             while (valorVetor != 99);
 
             Console.WriteLine();
-            // se o numero minimo de pessoas > quantidade que chegou
-            if (x > tempoChegada.Count)
+            // faz somente se chegou algum aluno
+            if (valorVetor == 99 && tempoChegada.Count > 0)
             {
-                Console.WriteLine("Não há pessoas suficiente para iniciar a aula!");
-                return;
-            }
-            else
-            {
-                string saida;
-                // se minimo de pessoas = quantos chegaram
-                if (x == tempoChegada.Count)
+                // se o numero minimo de pessoas > quantidade que chegou
+                if (x > tempoChegada.Count)
                 {
-                    saida = (contaAtrasado == 0) ? "Aula Normal" : "Aula Cancelada";
+                    Console.WriteLine("Não há pessoas suficiente para iniciar a aula!");
+                    return;
                 }
-                // se minimo de pessoas <> quantos chegaram
                 else
-                    saida = (contaNormal == x) ? "Aula Normal" : "Aula Cancelada";
+                {
+                    string saida;
+                    // se minimo de pessoas = quantos chegaram
+                    if (x == tempoChegada.Count)
+                    {
+                        saida = (contaAtrasado == 0) ? "Aula Normal" : "Aula Cancelada";
+                    }
+                    // se minimo de pessoas <> quantos chegaram
+                    else
+                        saida = (contaNormal == x) ? "Aula Normal" : "Aula Cancelada";
 
-                Console.WriteLine(saida);
+                    Console.WriteLine(saida);
+                }
             }
         }
     }
