@@ -1,4 +1,5 @@
-# Desafio de Programação - Programa Warren Tech Academy
+<h1 align="center"> Desafio de Programação - Programa Warren Tech Academy </h1>
+
 ## Aplicação desenvolvida para avaliação do Programa Desafio Warren Tech Academy
 
 Esta etapa do processo seletivo tem como objetivo avaliar o conhecimento de programação do aluno. Para tal, foram dados 3 desafios
@@ -72,6 +73,410 @@ dotnet run
 
 Após esses passos, deu-se inicio a implementação dos desafios
 
+### Códigos fonte
+  
+#### Desafio 01
+```
+using System;
+using System.Linq;
+
+namespace Desafio1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            //quantidade de numeros reversos
+            int contador = 0;
+
+            // numero máximo para fazer o cálculo. 
+            // Alterar este valor caso desejar 
+            int maximo = 1000000;
+
+            // começamos de 12 pois:
+            // - de 1 a 9 não há número inverso
+            // - não usamos o 0 e 10 pois o número e seu reverso não podem começar com 0
+            // - a soma do 11 com seu inverso não seria um número negativo            
+            for (int i = 12; i <= maximo; i++)
+            {
+                // separa individualmente o numero atual e armazena num array
+                var numeroSeparado = i.ToString().ToArray();
+
+                // armazena somente o último número lido do numero separado
+                var ultimoNumero = numeroSeparado.Last();
+
+                // se o ultimo número for 0, não faz o calculo
+                if (ultimoNumero != '0')
+                {
+                    // inverte o numero lido
+                    string textoInvertido = new string(i.ToString().Reverse().ToArray());
+
+                    // soma o numero lido com seu inverso     
+                    var soma = int.Parse(textoInvertido) + i;
+
+                    // se for numero impar, mostra.
+                    if (soma % 2 != 0)
+                    {
+                        contador++;
+                        Console.WriteLine($"Numero: {i} + Reverso: {textoInvertido} = Soma: {soma}");
+                    }
+                }
+            }
+            Console.WriteLine();
+            Console.WriteLine($"Total de números reversos até {maximo}: {contador}");
+        }
+    }
+}
+```
+#### Desafio 02
+```            
+using System;
+
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Desafio2
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // quantidade minima de alunos para iniciar a aula
+            int x = 0;
+
+            Console.Write("Quantidade mínima de alunos presentes para iniciar a aula" + 
+                          "\n(SOMENTE NÚMEROS INTEIROS) " + 
+                          "\n(99 para sair): ");
+            try
+            {
+                x = int.Parse(Console.ReadLine());
+                if (x == 99)
+                {
+                    return;
+                }
+
+                if (x <= 0)
+                {
+                    Console.Write("\nQuantidade deve ser maior que 0!");
+                    Console.ReadKey();
+                    return;
+                }
+            }
+            catch
+            {
+                Console.WriteLine();
+                Console.Write("Erro de conversão!");
+                Console.WriteLine();
+                return;
+            }            
+
+            Console.WriteLine("\nATENÇÃO PARA O TEMPO DE CHEGADA:" +
+                          "\nMenor ou igual a zero: sem atraso. Exemplo: 0 ou 1" +
+                          "\nMaior que 0 (zero): Atrasado. Exemplo: -1 " +
+                          "\nSOMENTE NÚMEROS INTEIROS ");
+
+            // armazena o tempo de chagada dos alunos
+            List<int> tempoChegada = new List<int>();
+            
+            // valor do tempo informado
+            int valorVetor = 0;
+
+            // conta alunos dentro ou fora do horário
+            int contaNormal = 0;
+            int contaAtrasado = 0;
+
+            Console.WriteLine();
+            do
+            {
+                Console.Write("Tempo de chagada do aluno: (99 para sair): ");
+                try
+                {
+                    valorVetor = int.Parse(Console.ReadLine());
+
+                    if (valorVetor != 99)
+                    {
+                        //adiciona o tempo informado na lista
+                        tempoChegada.Add(valorVetor);
+
+                        if (valorVetor <= 0)
+                        {
+                            contaNormal++;
+                        }
+                        else
+                        {
+                            contaAtrasado++;
+                        }
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine();
+                    Console.Write("Erro de conversão! Somente números inteiros");
+                    Console.WriteLine();
+                }
+
+            }
+            while (valorVetor != 99);
+
+            Console.WriteLine();
+            // se o numero minimo de pessoas > quantidade que chegou
+            if (x > tempoChegada.Count)
+            {
+                Console.WriteLine("Não há pessoas suficiente para iniciar a aula!");
+                return;
+            }
+            else
+            {
+                string saida;
+                // se minimo de pessoas = quantos chegaram
+                if (x == tempoChegada.Count)
+                {
+                    saida = (contaAtrasado == 0) ? "Aula Normal" : "Aula Cancelada";
+                }
+                // se minimo de pessoas <> quantos chegaram
+                else
+                    saida = (contaNormal == x) ? "Aula Normal" : "Aula Cancelada";
+
+                Console.WriteLine(saida);
+            }
+        }
+    }
+}
+```                                        
+#### Desafio 03
+```
+namespace Desafio3
+{
+    class Program
+    {
+        // armazena a menor quantidade atual de itens das combinações encontradas
+        public static int valorMinimoSomaExata = 0;
+        public static int valorMinimoSomaAproximada = 0;
+
+        // armazena a menor quantidade antiga de itens das combinações encontradas 
+        public static int menorAntigoSomaExata = 9999;
+        public static int menorAntigoSomaAproximada = 9999;
+
+        public static void Main(string[] args)
+
+        {
+            //valor da soma que se quer encontrar            
+            Console.Write("SOMENTE NÚMEROS INTEIROS " +
+                          "\nValor de N (99 para sair): ");
+
+            int soma = 0;
+            try
+            {
+                soma = int.Parse(Console.ReadLine());
+                if (soma == 99)
+                {
+                    return;
+                }
+
+            }
+            catch
+            {
+                Console.WriteLine();
+                Console.Write("Erro de conversão!");
+                Console.WriteLine();
+                return;
+            }
+
+            //lista com os valores que serão usados para somar
+            List<int> vetor = new List<int>();
+
+            // numeros que serão usados para somar
+            int valorVetor = 0;
+            do
+            {
+                Console.Write("Preencha o vetor com números inteiros (99 para sair): ");
+
+                try
+                {
+                    valorVetor = int.Parse(Console.ReadLine());
+                    if (valorVetor != 99)
+                    {
+                        vetor.Add(valorVetor);
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine();
+                    Console.Write("Erro de conversão! Somente números inteiros");
+                    Console.WriteLine();
+                }
+
+            }
+            while (valorVetor != 99);
+
+            resultados(vetor, soma);
+        }
+
+        private static void resultados(List<int> vetor, int soma)
+        {
+            if (vetor.Count != 0)
+            {
+                var result = new List<List<int>>();
+
+                // COMBINAÇÃO: recebe as combinações encontradas e ordena em ordem crescente
+                result = combinacao(vetor, soma).OrderBy(x => x.Count).ToList();
+
+                // se o vetor está vazio, nenhuma combinação de soma existe
+                Console.WriteLine();
+                if (result.Count == 0)
+                {
+                    Console.WriteLine("Nenhuma combinação encontrada!");
+                    return;
+                }
+
+                // lista com os menores numeros de itens para soma aproximada
+                List<List<int>> minimoSomaAproximada = new List<List<int>>();
+
+                // lista com os menores numeros de itens para soma exata
+                List<List<int>> minimoSomaExata = new List<List<int>>();
+
+                // seleciona somente vetores com o menor numero de itens e com soma aproximada
+                minimoSomaAproximada = result.Where(x => x.Count == valorMinimoSomaAproximada && x.Sum() < soma).ToList();
+
+                // seleciona somente vetores com o menor numero de itens e com soma exata
+                minimoSomaExata = result.Where(x => x.Count == valorMinimoSomaExata && x.Sum() == soma).ToList();
+
+                Console.WriteLine("Soma a ser encontrada: " + soma);
+
+                Console.WriteLine();
+
+                Console.WriteLine("Menor número de combinações encontradas com soma aproximada: ");
+                if (minimoSomaAproximada.Count == 0)
+                {
+                    Console.WriteLine("NÃO FORAM ECONTRADAS COMBINAÇÕES");
+                }
+                else
+                {
+                    for (int i = 0; i < minimoSomaAproximada.Count; i++)
+                    {
+                        Console.WriteLine("[" + string.Join(", ", minimoSomaAproximada[i]) + "]");
+                    }
+                }
+
+                Console.WriteLine("");
+
+                Console.WriteLine("Menor número de combinações encontradas com soma exata:");
+                if (minimoSomaExata.Count == 0)
+                {
+                    Console.WriteLine("NÃO FORAM ECONTRADAS COMBINAÇÕES");
+                }
+                else
+                {
+                    for (int i = 0; i < minimoSomaExata.Count; i++)
+                    {
+                        Console.WriteLine("[" + string.Join(", ", minimoSomaExata[i]) + "]");
+                    }
+                }
+
+                Console.WriteLine();
+
+                // mostra todas as combinações encontradas
+                Console.WriteLine("Todas as combinações encontradas:");
+                for (int i = 0; i < result.Count; i++)
+                {
+                    Console.WriteLine("[" + string.Join(", ", result[i]) + "]");
+                }
+            }
+        }
+
+        public static List<List<int>> combinacao(List<int> array, int soma)
+        {
+            // ordena o array em ordem crescente
+            array.Sort();
+
+            //array para adicionar somente um unico elemento caso houver duplicados            
+            var unico = new List<int>();
+
+            // cria uma coleção não ordenada
+            // e verifica se o elemento foi adicionado no array unico ou não            
+            var hs = new HashSet<int>();
+            for (int i = 0; i < array.Count; i++)
+            {
+                if (!hs.Contains(array[i]))
+                {
+                    hs.Add(array[i]);
+                    unico.Add(array[i]);
+                }
+            }
+
+            // copia o array unico para o array original
+            // para armazenar a combinação unica
+            array = unico;
+
+            // armazena todas as combinações unicas         
+            var vetor = new List<int>();
+            var result = new List<List<int>>();
+
+            // procura por combinações para atingir a soma
+            procuraCombinacao(array, soma, result, vetor, 0);
+            return result;
+        }
+
+        public static void procuraCombinacao(List<int> array, int soma,
+            List<List<int>> resultadoSoma, List<int> vetor, int i)
+        {
+            if (soma < 0)
+            {
+                return;
+            }
+
+            // se a soma for exata, armazena a combinação na lista
+            // e guarda a menor quantidade de itens
+            if (soma == 0)
+            {
+                // adiciona o array encontrado na lista
+                resultadoSoma.Add(new List<int>(vetor));
+                // verifica o qual o array com a menor combinação
+                // armazenando em valorMinimoSomaExata
+                if (vetor.Count < menorAntigoSomaExata)
+                {
+                    valorMinimoSomaExata = vetor.Count;
+                    menorAntigoSomaExata = valorMinimoSomaExata;
+                }
+                return;
+            }
+
+            // se a soma for aproximada, armazena a combinação na lista
+            // e guarda a menor quantidade de itens 
+            if (soma == 1)
+            {
+                // adiciona o array encontrado na lista
+                resultadoSoma.Add(new List<int>(vetor));
+                // verifica o qual o array com a menor combinação
+                // armazenando em valorMinimoSomaAproximada
+                if (vetor.Count < menorAntigoSomaAproximada)
+                {
+                    valorMinimoSomaAproximada = vetor.Count;
+                    menorAntigoSomaAproximada = valorMinimoSomaAproximada;
+                }
+                return;
+            }
+
+            // recorrente para todos os elementos 
+            // restantes que tem valor menor que a soma original
+            while (i < array.Count && soma - array[i] >= 0)
+            {
+                // adiciona cada elemento do array ao vetor que contribui para a soma
+                vetor.Add(array[i]);
+                // recorrente para adicionar i ao vetor se contribui para a soma
+                procuraCombinacao(array, soma - array[i], resultadoSoma, vetor, i);
+                // move para o proximo elemento caso a soma 
+                // dos elementos se tornar maior
+                // ou igual a soma original
+                i++;
+                // remove o ultimo da lista de combinações
+                // para adicionar o proximo elemento, basicamente retrocedendo
+                vetor.RemoveAt(vetor.Count - 1);
+            }
+        }
+    }
+}
+```            
 ### Executando as aplicações
 Podemos executar as aplicações de duas maneiras:
 * pelo VSCode
