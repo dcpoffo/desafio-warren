@@ -60,7 +60,7 @@ Algo como o código abaixo deverá surgir, indicando a instalação do .NET SDK 
 
 ![image](https://user-images.githubusercontent.com/52115300/166314001-f92a3b0a-1fd7-4c90-bb36-253a0424c0d5.png)
 
-Após, foi criado uma pasta para cada desafio: desafio1, desafio2 e desafio3. Acessando cada pasta pelo terminal (pode ser o Prompt de Comando, GitBash ou o Terminal do VSCode), foi executado o comando abaixo para que a Aplicação Console fosse criada. Esse comando, por si só, cria a Aplicação Console com um "Hello, World!"
+Após, foi criado uma pasta para cada desafio: desafio1, desafio2 e desafio3. Acessando cada pasta pelo terminal (pode ser o Prompt de Comando, GitBash ou o Terminal do VSCode), foi executado o comando abaixo para que a Aplicação Console fosse criada. Esse comando, por si só, cria uma Aplicação Console com um "Hello, World!"
 ```
 dotnet new console
 ```
